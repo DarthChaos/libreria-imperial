@@ -1,6 +1,7 @@
 import Head from "next/head";
 import "./globals.css";
 import { Roboto_Condensed } from "next/font/google";
+import Header from "@/layouts/header";
 
 const robotoCondensed = Roboto_Condensed({
   weight: ["300", "400", "700"],
@@ -23,7 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={robotoCondensed.className}>{children}</body>
+      <body className={robotoCondensed.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
