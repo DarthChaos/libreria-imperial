@@ -1,0 +1,17 @@
+.button {
+  @apply font-normal text-xs py-2 px-5 h-8 min-w-[96px] relative;
+}
+
+.button > span {
+  @apply w-2 h-2 border-[1.5px] border-primary-red-3 absolute flex
+    first:top-0.5 first:left-0.5 first:border-r-0 first:border-b-0 
+    last:bottom-0.5 last:right-0.5 last:border-l-0 last:border-t-0;
+}
+
+.primary-button {
+  @apply bg-primary-yellow-3 hover:bg-primary-yellow-1 active:bg-primary-yellow-1;
+}
+
+.cancel-button {
+  @apply bg-primary-red-1 hover:bg-primary-red-2 active:bg-primary-red-2;
+}
