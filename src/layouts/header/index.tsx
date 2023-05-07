@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { HambergerMenu, BagHappy } from "iconsax-react";
 
@@ -6,8 +6,10 @@ import Image from "next/image";
 import NavigationBar from "./navigation-bar";
 
 const Header = () => {
+  const [openNavBar, setOpenNavBar] = useState(false);
+
   return (
-    <header className='h-[70px] px-4 py-5 bg-primary-yellow-2 flex justify-between'>
+    <header className='h-[70px] px-4 py-5 bg-primary-yellow-2 flex justify-between fixed w-full'>
       <HambergerMenu className='w-[30px] md:hidden' size={30} color='#000000' />
       <Image
         className='translate-x-8 md:translate-x-0'

@@ -1,9 +1,17 @@
 import React from "react";
 
-const NavigationBar = () => {
+type NavigationBarProps = {
+  showNavBar?: boolean;
+};
+
+const NavigationBar = ({ showNavBar = false }: NavigationBarProps) => {
+  const navBarClass = `md:block translate-y-1 ${
+    showNavBar ? "block" : "hidden"
+  }`;
+
   return (
-    <nav className='hidden md:block translate-y-1'>
-      <ul className='flex gap-7 list-none text-primary-red-1 font-semibold text-base'>
+    <nav className={navBarClass}>
+      <ul className='flex gap-7 list-none text-primary-red-1 font-semibold text-base flex-col md:flex-row'>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
           <a href='/'>Home</a>
         </li>
