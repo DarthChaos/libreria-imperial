@@ -11,13 +11,15 @@ const Header = () => {
   return (
     <header className='h-[70px] px-4 py-5 bg-primary-yellow-2 flex justify-between fixed w-full'>
       <HambergerMenu className='w-[30px] md:hidden' size={30} color='#000000' />
-      <Image
-        className='translate-x-8 md:translate-x-0'
-        src='/black_complete_logo.svg'
-        alt='Librería Imperial'
-        width={100}
-        height={46}
-      />
+      <div className='w-24 h-24 relative'>
+        <Image
+          className='translate-x-7 -mt-8 md:translate-x-0'
+          src='/black_complete_logo.svg'
+          alt='Librería Imperial'
+          fill
+          sizes='10px'
+        />
+      </div>
       <NavigationBar />
       <div className='flex gap-1'>
         <BagHappy className='w-7 my-auto' variant='Bold' color='#000000' />
