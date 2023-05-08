@@ -17,7 +17,6 @@ const Header = () => {
           src='/black_complete_logo.svg'
           alt='Librería Imperial'
           fill
-          sizes='10px'
         />
       </div>
       <NavigationBar />
