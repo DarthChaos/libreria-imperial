@@ -22,7 +22,9 @@ const Header = () => {
       <NavigationBar />
       <div className='flex gap-1'>
         <BagHappy className='w-7 my-auto' variant='Bold' color='#000000' />
-        <span className='text-sm font-semibold my-auto'>Sign In / Log In</span>
+        <span className='text-sm font-semibold my-auto text-primary-black'>
+          Sign In / Log In
+        </span>
       </div>
     </header>
   );
