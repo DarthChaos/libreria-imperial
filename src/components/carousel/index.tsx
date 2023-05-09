@@ -1,8 +1,24 @@
-import React from "react";
+import React, { ReactNode } from "react";
+
+import { v4 } from "uuid";
 
 import "./Carousel.css";
 
-const Carousel = () => {
+type CarouselProps = {
+  elements: ReactNode[];
+};
+
+const Carousel = ({ elements }: CarouselProps) => {
+  const carouselList = elements.map((El) => {
+    const id = v4();
+
+    return (
+      <div key={id} className='carrusel'>
+        {El}
+      </div>
+    );
+  });
+
   return (
     <div className='carrusel-list' id='carrusel-list'>
       <button
@@ -27,7 +43,8 @@ const Carousel = () => {
       </button>
 
       <div className='carrusel-track' id='track'>
-        <div className='carrusel'>
+        {carouselList}
+        {/* <div className='carrusel'>
           <div>
             <a href='/'>
               <h4>
@@ -159,7 +176,7 @@ const Carousel = () => {
               </picture>
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <button

@@ -1,9 +1,5 @@
 "use client";
 
-import LinkedButton from "@/components/button/linked-button";
-import { Facebook } from "iconsax-react";
-import Image from "next/image";
-
 import "./home.css";
 
 export default function Home() {

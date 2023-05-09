@@ -11,8 +11,8 @@ import { loadValues } from "../../app-redux/features/comics/single/comicSlice";
 import Description from "./description";
 import Facts from "./facts";
 import BreadCrumb from "@/components/breadcrumb";
-
-const ComicProps = {};
+import Card from "@/components/card";
+import Carousel from "@/components/carousel";
 
 const publicKey = "77989cd1b9b55360e5dad825e78d3f52";
 const privateKey = "635de7065008cffc26c33dd559b8ab368220697a";
@@ -22,20 +22,11 @@ const Comic = () => {
     useSelector((state: RootState) => state.comic);
   const dispatch = useDispatch();
 
-  const [data, setData] = useState({
-    title: "",
-    image: "",
-    update: "",
-    desc: "",
-    price: "",
-    credits: [],
-    characters: [],
-    cover: [],
-  });
-
   const [_empty, _comics, comic] = usePathname().split("/");
 
   const crumbs = [{ label: "Home", value: "/" }, { label: "Comic Name" }];
+
+  const cards = [<Card key={1} />, <Card key={2} />, <Card key={2} />];
 
   useEffect(() => {
     const getData = async () => {
@@ -94,10 +85,13 @@ const Comic = () => {
         description={desc}
       />
       <Facts {...{ characters, cover, credits }} />
-      {/* <div className='py-6 flex justify-center bg-primary-gray-2'>
-        <h2 className='text-primary-white font-semibold text-4xl'>
+      {/* <div className='py-6 justify-center bg-primary-gray-2'>
+        <h2 className='text-primary-white font-semibold text-4xl text-center'>
           Related Comics
         </h2>
+        <div className='flex justify-center'>
+          <Carousel elements={cards} />
+        </div>
       </div> */}
     </>
   );
