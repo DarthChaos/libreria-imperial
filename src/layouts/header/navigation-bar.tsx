@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 type NavigationBarProps = {
@@ -13,16 +14,16 @@ const NavigationBar = ({ showNavBar = false }: NavigationBarProps) => {
     <nav className={navBarClass}>
       <ul className='flex gap-7 list-none text-primary-red-1 font-semibold text-base flex-col md:flex-row'>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
-          <a href='/'>Home</a>
+          <Link href='/'>Home</Link>
         </li>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
-          <a href='/comics/82967'>Comics</a>
+          <Link href='/comics/1308'>Comics</Link>
         </li>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
-          <a href='/events/116'>Event</a>
+          <Link href='/events/116'>Event</Link>
         </li>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
-          <a href='/character/1011334'>Characters</a>
+          <Link href='/character/1011334'>Characters</Link>
         </li>
       </ul>
     </nav>

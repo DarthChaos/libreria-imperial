@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={robotoCondensed.className}>
         <Header />
-        <div className='pt-[70px] min-h-screen'>{children}</div>
+        <main className='pt-[70px] min-h-screen'>{children}</main>
         <Footer />
       </body>
     </html>

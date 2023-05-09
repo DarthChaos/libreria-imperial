@@ -1,103 +1,106 @@
-import BreadCrumb from "@/components/breadcrumb";
-import Image from "next/image";
-import React from "react";
+"use client";
 
-import { UsdCoin, Like1, BagTick } from "iconsax-react";
+import BreadCrumb from "@/components/breadcrumb";
+import React, { useEffect, useState } from "react";
+
+import { createHash } from "crypto";
+import { usePathname } from "next/navigation";
+import Description from "./description";
+import Facts from "./facts";
 
 const ComicProps = {};
 
+const publicKey = "77989cd1b9b55360e5dad825e78d3f52";
+const privateKey = "635de7065008cffc26c33dd559b8ab368220697a";
+
 const Comic = () => {
+  const [data, setData] = useState({
+    title: "",
+    image: "",
+    update: "",
+    desc: "",
+    price: "",
+    credits: [],
+    characters: [],
+    cover: [],
+  });
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [update, setUpdate] = useState("");
+  const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState("");
+  const [credits, setCredits] = useState([]);
+  const [characters, setCharacters] = useState([]);
+
+  const [_empty, _comics, comic] = usePathname().split("/");
+
   const crumbs = [{ label: "Home", value: "/" }, { label: "Comic Name" }];
+
+  useEffect(() => {
+    const getData = async () => {
+      const api = `https://gateway.marvel.com:443/v1/public/comics/${comic}?limit=1`;
+      const timestamp = new Date().toISOString();
+      const hash = createHash("md5")
+        .update(timestamp + privateKey + publicKey)
+        .digest("hex");
+      const apiUrl =
+        api + "&ts=" + timestamp + "&apikey=" + publicKey + "&hash=" + hash;
+      const response = await (await fetch(apiUrl, { method: "GET" })).json();
+      const result = response.data.results[0];
+      const thumbnail = result.thumbnail;
+      const creators = result.creators.items.reduce(
+        (acc: { credits: {}[]; cover: {}[] }, { role = "", name = "" }) => {
+          const value = { role, name };
+
+          if (role.includes("cover")) acc.cover.push(value);
+          else acc.credits.push(value);
+
+          return acc;
+        },
+        { credits: [], cover: [] },
+      );
+
+      setData({
+        title: result.title,
+        image: `${thumbnail.path}.${thumbnail.extension}`,
+        update: new Date(result.modified).toLocaleDateString("en-US", {
+          month: "long",
+          day: "2-digit",
+          year: "numeric",
+        }),
+        desc: result.description,
+        price: result.prices[0].price,
+        credits: creators?.credits || [],
+        characters: result.characters.items.map(({ name = "" }) => ({
+          name,
+        })),
+        cover: creators?.cover || [],
+      });
+    };
+
+    getData();
+  }, [comic]);
 
   return (
     <>
       <BreadCrumb {...{ crumbs }} />
-      <div className='mx-8 mb-10 mt-4 grid gap-x-8 md:grid-cols-2'>
-        <h1 className='text-[32px] font-bold text-center mb-2 md:hidden'>
-          Title
-        </h1>
-        <div className='aspect-[375/484] w-full h-auto max-w-[375px] mx-auto relative'>
-          <Image src={"/img.img"} alt={"img img"} fill />
-        </div>
-        <div className='flex flex-col'>
-          <h1 className='text-[32px] font-bold text-center hidden mb-auto md:block'>
-            Title
-          </h1>
-          <p className='mt-8 mb-10 text-xs font-normal text-primary-gray-1'>
-            Published Month dd, Year
-          </p>
-          <p className='text-base font-normal mb-12 leading-[1.1rem]'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            posuere urna odio, at rhoncus nisi efficitur ut. Donec in diam
-            massa. Nulla faucibus lectus sem, at bibendum risus placerat vel.
-            Praesent lobortis pellentesque ipsum, et feugiat mi accumsan eu. In
-            ornare feugiat erat, at convallis purus tempor ut.
-          </p>
-          <div className='grid grid-cols-3'>
-            <div className='col-auto flex flex-col content-center flex-wrap'>
-              <div className='flex justify-center'>
-                <UsdCoin size='64' color='#FFDF00' variant='Bold' />
-              </div>
-              <span className='text-center'>$ 5.99 USD</span>
-            </div>
-            <div className='col-auto flex flex-col content-center flex-wrap'>
-              <div className='cursor-pointer flex justify-center'>
-                <Like1 size='64' color='#fff' variant='Bold' />
-              </div>
-              <span className='text-center'>1 Like</span>
-            </div>
-            <div className='col-auto flex flex-col content-center flex-wrap'>
-              <div className='cursor-pointer flex justify-center'>
-                <BagTick size='64' color='#fff' variant='Bold' />
-              </div>
-              <span className='text-center'>Add to Cart</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='py-11 px-8 mb-10 bg-primary-yellow-2 grid md:grid-cols-3'>
-        <div className='flex flex-col justify-center mb-5'>
-          <h2 className='font-semibold text-4xl text-center mb-5'>Credits</h2>
-          <div className='grid mx-auto'>
-            <div className='row-auto grid grid-cols-3 gap-x-4'>
-              <div className='col-span-1'>Writter:</div>
-              <div className='col-span-2'>Lorem Ipsum.</div>
-            </div>
-            <div className='row-auto grid grid-cols-3 gap-x-4'>
-              <div className='col-span-1'>Inker:</div>
-              <div className='col-span-2'>Lorem Ipsum.</div>
-            </div>
-            <div className='row-auto grid grid-cols-3 gap-x-4'>
-              <div className='col-span-1'>Colorist:</div>
-              <div className='col-span-2'>Lorem Ipsum.</div>
-            </div>
-            <div className='row-auto grid grid-cols-3 gap-x-4'>
-              <div className='col-span-1'>Penciler:</div>
-              <div className='col-span-2'>Lorem Ipsum.</div>
-            </div>
-          </div>
-        </div>
-        <div className='flex flex-col justify-center mb-5'>
-          <h2 className='font-semibold text-4xl text-center mb-5'>
-            Characters
-          </h2>
-          <div className='mx-auto'>Lorem Ipsum (Lorem Ipsum).</div>
-        </div>
-        <div className='flex flex-col justify-center mb-5'>
-          <h2 className='font-semibold text-4xl text-center mb-5'>Cover</h2>
-          <div className='grid mx-auto'>
-            <div className='row-auto grid grid-cols-3 gap-x-4'>
-              <div className='col-span-1'>Penciler:</div>
-              <div className='col-span-2'>Lorem Ipsum.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='py-6 flex justify-center bg-primary-gray-2'>
+      <Description
+        title={data.title}
+        img={data.image}
+        publishDate={data.update}
+        description={data.desc}
+        price={data.price}
+      />
+      <Facts
+        characters={data.characters}
+        cover={data.cover}
+        credits={data.credits}
+      />
+      {/* <div className='py-6 flex justify-center bg-primary-gray-2'>
         <h2 className='text-primary-white font-semibold text-4xl'>
           Related Comics
         </h2>
-      </div>
+      </div> */}
     </>
   );
 };
