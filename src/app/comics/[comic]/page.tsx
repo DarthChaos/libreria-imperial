@@ -1,12 +1,16 @@
 "use client";
 
-import BreadCrumb from "@/components/breadcrumb";
 import React, { useEffect, useState } from "react";
-
 import { createHash } from "crypto";
 import { usePathname } from "next/navigation";
+
+import type { RootState } from "../../app-redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { loadValues } from "../../app-redux/features/comics/single/comicSlice";
+
 import Description from "./description";
 import Facts from "./facts";
+import BreadCrumb from "@/components/breadcrumb";
 
 const ComicProps = {};
 
@@ -14,6 +18,10 @@ const publicKey = "77989cd1b9b55360e5dad825e78d3f52";
 const privateKey = "635de7065008cffc26c33dd559b8ab368220697a";
 
 const Comic = () => {
+  const { characters, cover, credits, desc, image, price, title, update } =
+    useSelector((state: RootState) => state.comic);
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
     title: "",
     image: "",
@@ -24,13 +32,6 @@ const Comic = () => {
     characters: [],
     cover: [],
   });
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
-  const [update, setUpdate] = useState("");
-  const [desc, setDesc] = useState("");
-  const [price, setPrice] = useState("");
-  const [credits, setCredits] = useState([]);
-  const [characters, setCharacters] = useState([]);
 
   const [_empty, _comics, comic] = usePathname().split("/");
 
@@ -60,42 +61,39 @@ const Comic = () => {
         { credits: [], cover: [] },
       );
 
-      setData({
-        title: result.title,
-        image: `${thumbnail.path}.${thumbnail.extension}`,
-        update: new Date(result.modified).toLocaleDateString("en-US", {
-          month: "long",
-          day: "2-digit",
-          year: "numeric",
+      dispatch(
+        loadValues({
+          title: result.title,
+          image: `${thumbnail.path}.${thumbnail.extension}`,
+          update: new Date(result.modified).toLocaleDateString("en-US", {
+            month: "long",
+            day: "2-digit",
+            year: "numeric",
+          }),
+          desc: result.description,
+          price: result.prices[0].price,
+          credits: creators?.credits || [],
+          characters: result.characters.items.map(({ name = "" }) => ({
+            name,
+          })),
+          cover: creators?.cover || [],
         }),
-        desc: result.description,
-        price: result.prices[0].price,
-        credits: creators?.credits || [],
-        characters: result.characters.items.map(({ name = "" }) => ({
-          name,
-        })),
-        cover: creators?.cover || [],
-      });
+      );
     };
 
     getData();
-  }, [comic]);
+  }, [comic, dispatch]);
 
   return (
     <>
       <BreadCrumb {...{ crumbs }} />
       <Description
-        title={data.title}
-        img={data.image}
-        publishDate={data.update}
-        description={data.desc}
-        price={data.price}
+        {...{ title, price }}
+        img={image}
+        publishDate={update}
+        description={desc}
       />
-      <Facts
-        characters={data.characters}
-        cover={data.cover}
-        credits={data.credits}
-      />
+      <Facts {...{ characters, cover, credits }} />
       {/* <div className='py-6 flex justify-center bg-primary-gray-2'>
         <h2 className='text-primary-white font-semibold text-4xl'>
           Related Comics

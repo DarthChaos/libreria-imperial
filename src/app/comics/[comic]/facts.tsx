@@ -1,14 +1,18 @@
 import React from "react";
 
-type roleNameElement = { role: string; name: string };
+import {
+  NameElement,
+  RoleNameElement,
+} from "@/app/app-redux/features/comics/single/comicSlice";
+
 type FactsProps = {
-  credits: roleNameElement[];
-  cover: roleNameElement[];
-  characters: { name: string }[];
+  credits: RoleNameElement[];
+  cover: RoleNameElement[];
+  characters: NameElement[];
 };
 
 const Facts = ({ characters, cover, credits }: FactsProps) => {
-  const getRenderItems = (items: roleNameElement[]) =>
+  const getRenderItems = (items: RoleNameElement[]) =>
     items.map(({ role, name }) => (
       <div
         key={`${role}-${name}`}
