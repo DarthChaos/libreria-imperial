@@ -23,7 +23,7 @@ const NavigationBar = ({ showNavBar = false }: NavigationBarProps) => {
           <Link href='/events/116'>Event</Link>
         </li>
         <li className='h-[46px] hover:border-b-2 border-solid border-primary-red-1'>
-          <Link href='/character/1011334'>Characters</Link>
+          <Link href='/characters/1011334'>Characters</Link>
         </li>
       </ul>
     </nav>
