@@ -6,11 +6,16 @@ type ButtonProps = {
   children: string;
   type?: "base" | "cancel";
   className?: string;
-  onClick?: () => {};
+  onClick?: () => void;
 };
 
-const Button = ({ children, className, type = "base" }: ButtonProps) => {
-  const buttonClass = ` button parent group ${className || ""} ${
+const Button = ({
+  children,
+  className,
+  type = "base",
+  onClick,
+}: ButtonProps) => {
+  const buttonClass = `w-[100px] button parent group ${className || ""} ${
     type == "cancel" ? "cancel-button" : "primary-button"
   }`;
   const smallCorners =
@@ -18,8 +23,12 @@ const Button = ({ children, className, type = "base" }: ButtonProps) => {
       ? "group-hover:border-primary-red-1"
       : "group-hover:border-primary-blue";
 
+  const onButtonClick = () => {
+    onClick && onClick();
+  };
+
   return (
-    <button className={buttonClass}>
+    <button className={buttonClass} onClick={onButtonClick}>
       <span className={smallCorners} />
       {children}
       <span className={smallCorners} />

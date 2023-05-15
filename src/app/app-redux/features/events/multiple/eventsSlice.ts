@@ -2,18 +2,18 @@
 
 import { client } from "@/app/app-redux/api/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ComicsState } from "./comics";
+import { EventsState } from "./events";
 
-const initialState: ComicsState = {
-  comics: [],
+const initialState: EventsState = {
+  events: [],
   status: "idle",
   error: null,
 };
 
-export const fetchFeaturedComics = createAsyncThunk(
-  "comic/getComicsByCharacterId",
+export const fetchFeaturedEvents = createAsyncThunk(
+  "comic/getEventsByCharacterId",
   async ({ id, limit }: { id: string; limit: number }) => {
-    const response = await client(`characters/${id}/comics`, {
+    const response = await client(`characters/${id}/events`, {
       limit: limit.toString(),
     }).get();
 
@@ -21,22 +21,22 @@ export const fetchFeaturedComics = createAsyncThunk(
   },
 );
 
-export const comicsSlice = createSlice({
-  name: "comics",
+export const eventsSlice = createSlice({
+  name: "events",
   initialState,
   reducers: {
     loadValues: (_state, action) => ({ ...action.payload }),
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchFeaturedComics.pending, (state) => {
+      .addCase(fetchFeaturedEvents.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchFeaturedComics.fulfilled, (state, action) => {
+      .addCase(fetchFeaturedEvents.fulfilled, (state, action) => {
         const results = action.payload.data.results;
-        const comics = results.map((res: any) => {
+        const events = results.map((res: any) => {
           const thumbnail = res.thumbnail;
-          const firstDate = res.dates[0].date;
+          const firstDate = res.start;
           const tag = firstDate && new Date(firstDate).getFullYear().toString();
 
           return {
@@ -49,15 +49,15 @@ export const comicsSlice = createSlice({
         });
 
         state.status = "succeeded";
-        state.comics = comics;
+        state.events = events;
       })
-      .addCase(fetchFeaturedComics.rejected, (state, action) => {
+      .addCase(fetchFeaturedEvents.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       });
   },
 });
 
-export const { loadValues } = comicsSlice.actions;
+export const { loadValues } = eventsSlice.actions;
 
-export default comicsSlice.reducer;
+export default eventsSlice.reducer;

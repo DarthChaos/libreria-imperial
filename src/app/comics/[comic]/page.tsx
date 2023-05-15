@@ -17,7 +17,7 @@ const Comic = () => {
     comic: { characters, cover, credits, desc, image, price, title, update },
     status: comicStatus,
   } = useSelector((state: RootState) => state.comic);
-  const firstCharacter = characters[0]?.id || null;
+  const lastCharacter = characters[characters.length - 1]?.id || null;
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -39,7 +39,7 @@ const Comic = () => {
         description={desc}
       />
       <Facts {...{ characters, cover, credits }} />
-      {firstCharacter && <RelatedComics characterId={firstCharacter} />}
+      {lastCharacter && <RelatedComics characterId={lastCharacter} />}
     </>
   );
 };
