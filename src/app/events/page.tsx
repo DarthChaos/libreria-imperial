@@ -1,9 +1,7 @@
-"use client";
-
 import React from "react";
 
-const Comics = () => {
+const Events = () => {
   return <div>Page Under construction.</div>;
 };
 
-export default Comics;
+export default Events;

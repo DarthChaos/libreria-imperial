@@ -1,14 +1,14 @@
-import React from "react";
-
 import {
-  NameElement,
+  IdNameElement,
   RoleNameElement,
-} from "@/app/app-redux/features/comics/single/comicSlice";
+} from "@/app/app-redux/features/comics/single/comic";
+import YellowContainer from "@/components/containers/yellow-container";
+import React from "react";
 
 type FactsProps = {
   credits: RoleNameElement[];
   cover: RoleNameElement[];
-  characters: NameElement[];
+  characters: IdNameElement[];
 };
 
 const Facts = ({ characters, cover, credits }: FactsProps) => {
@@ -31,7 +31,7 @@ const Facts = ({ characters, cover, credits }: FactsProps) => {
   ));
 
   return (
-    <div className='bg-primary-yellow-2 py-11 px-8 mb-10'>
+    <YellowContainer>
       <div className='mx-auto max-w-[900px] grid md:grid-cols-3'>
         <div className='flex flex-col mb-5'>
           <h2 className='font-semibold text-4xl text-center mb-5'>Credits</h2>
@@ -48,7 +48,7 @@ const Facts = ({ characters, cover, credits }: FactsProps) => {
           <div className='grid mx-auto'>{coverRender}</div>
         </div>
       </div>
-    </div>
+    </YellowContainer>
   );
 };
 
