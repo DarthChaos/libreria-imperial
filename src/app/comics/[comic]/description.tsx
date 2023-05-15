@@ -27,7 +27,7 @@ const Description = ({
   const likeLabel = `${likes} like${likes < 2 ? "s" : ""}`;
 
   return (
-    <div className='mx-8 mb-10 mt-4 grid gap-x-8 max-w-[900px] md:mx-auto md:grid-cols-2'>
+    <div className='mx-8 px-8 mb-10 mt-4 grid gap-x-8 max-w-[900px] md:mx-auto md:grid-cols-2'>
       <h1 className='text-[32px] font-bold text-center mb-2 md:hidden'>
         {title}
       </h1>

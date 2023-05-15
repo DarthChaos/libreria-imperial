@@ -1,0 +1,23 @@
+export interface RoleNameElement {
+  role: string;
+  name: string;
+}
+export interface IdNameElement {
+  id: string;
+  name: string;
+}
+export interface Comic {
+  title: string;
+  image: string;
+  update: string;
+  desc: string;
+  price: string;
+  credits: RoleNameElement[];
+  characters: NameElement[];
+  cover: RoleNameElement[];
+}
+export interface ComicState {
+  comic: Comic;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
