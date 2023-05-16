@@ -6,6 +6,7 @@ import comicsSlice from "./features/comics/multiple/comicsSlice";
 import eventSlice from "./features/events/single/eventSlice";
 import eventsSlice from "./features/events/multiple/eventsSlice";
 import charactersSlice from "./features/characters/charactersSlice";
+import shoppingCartSlice from "./features/shopping-cart/shoppingCartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     event: eventSlice,
     events: eventsSlice,
     character: charactersSlice,
+    shoppingCart: shoppingCartSlice,
   },
 });
 

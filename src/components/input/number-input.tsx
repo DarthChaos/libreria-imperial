@@ -23,7 +23,7 @@ const NumberInput = () => {
 
   return (
     <div>
-      <div className='bg-primary-gray-2 w-28 h-10 mb-2'>
+      <div className='bg-primary-gray-2 w-28 h-10 mb-2 flex justify-between'>
         <button
           className='text-primary-white opacity-75 h-full px-2'
           onClick={decrease}>
@@ -32,7 +32,7 @@ const NumberInput = () => {
         <input
           {...{ value }}
           type='number'
-          className='bg-primary-transparent w-[66px] text-center focus-visible:border-none'
+          className='bg-primary-transparent w-[60px] text-center focus-visible:border-none'
           onChange={onNumberChange}
           min='1'
         />

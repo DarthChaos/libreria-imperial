@@ -1,3 +1,4 @@
+import { error, status } from "@/interfaces/global-redux";
 import { Comic } from "../single/comic";
 
 export interface ComicsState {
@@ -10,6 +11,6 @@ export interface ComicsState {
         tag: string | boolean;
       }[]
     | [];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  status: status;
+  error: error;
 }

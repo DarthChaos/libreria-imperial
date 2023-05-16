@@ -1,3 +1,5 @@
+import { error, status } from "@/interfaces/global-redux";
+
 export interface EventState {
   event: {
     date: string;
@@ -8,6 +10,6 @@ export interface EventState {
     detail: URL | null;
     lastCharacter: string;
   };
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  status: status;
+  error: error;
 }

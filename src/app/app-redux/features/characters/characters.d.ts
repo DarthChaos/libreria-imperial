@@ -1,3 +1,5 @@
+import { error, status } from "@/interfaces/global-redux";
+
 export interface Character {
   title: string;
   image: string;
@@ -9,6 +11,6 @@ export interface Character {
 }
 export interface CharacterState {
   character: Character;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  status: status;
+  error: error;
 }

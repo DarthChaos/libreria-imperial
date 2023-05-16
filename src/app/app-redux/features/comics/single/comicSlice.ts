@@ -71,7 +71,7 @@ export const comicSlice = createSlice({
               const url = resourceURI.split("/");
 
               return {
-                id: url[url.length - 1],
+                id: url.at(-1),
                 name,
               };
             },

@@ -51,9 +51,8 @@ export const eventsSlice = createSlice({
           {},
         );
         const characters = result.characters.items;
-        const lastItem =
-          characters[characters.length - 1].resourceURI.split("/");
-        const lastCharacter = lastItem[lastItem.length - 1];
+        const lastItem = characters.at(-1).resourceURI.split("/");
+        const lastCharacter = lastItem.at(-1);
 
         state.status = "succeeded";
         state.event = {

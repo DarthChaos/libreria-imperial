@@ -1,3 +1,5 @@
+import { error, status } from "@/interfaces/global-redux";
+
 export interface RoleNameElement {
   role: string;
   name: string;
@@ -18,6 +20,6 @@ export interface Comic {
 }
 export interface ComicState {
   comic: Comic;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  status: status;
+  error: error;
 }
