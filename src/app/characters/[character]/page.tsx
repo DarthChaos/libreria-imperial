@@ -16,9 +16,6 @@ const Character = () => {
     character: { desc, image, title, update, comics, events, stories },
     status: comicStatus,
   } = useSelector((state: RootState) => state.character);
-  // const lastCharacter = characters[characters.length - 1]?.id || null;
-
-  console.log();
 
   const dispatch = useDispatch<AppDispatch>();
 
