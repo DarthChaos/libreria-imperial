@@ -27,7 +27,7 @@ const Card = ({
           {hasTag && <Tag label={tag} />}
         </div>
         <h3 className='text-xl font-semibold line-clamp-1 mb-2'>{title}</h3>
-        <p className='line-clamp-5 leading-4 text-sm text-primary-black'>
+        <p className='line-clamp-5 leading-4 text-sm text-primary-black text-start'>
           {description ?? "No description."}
         </p>
       </div>

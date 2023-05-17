@@ -20,7 +20,16 @@ export const fetchFeaturedComics = createAsyncThunk(
     return response;
   },
 );
+export const fetchAllComics = createAsyncThunk(
+  "comic/getAllComics",
+  async (limit: number = 16) => {
+    const response = await client(`comics`, {
+      limit: limit.toString(),
+    }).get();
 
+    return response;
+  },
+);
 export const comicsSlice = createSlice({
   name: "comics",
   initialState,
@@ -52,6 +61,32 @@ export const comicsSlice = createSlice({
         state.comics = comics;
       })
       .addCase(fetchFeaturedComics.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
+      .addCase(fetchAllComics.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllComics.fulfilled, (state, action) => {
+        const results = action.payload.data.results;
+        const comics = results.map((res: any) => {
+          const thumbnail = res.thumbnail;
+          const firstDate = res.dates[0].date;
+          const tag = firstDate && new Date(firstDate).getFullYear().toString();
+
+          return {
+            id: res.id.toString(),
+            title: res.title,
+            desc: res.description,
+            image: `${thumbnail.path}.${thumbnail.extension}`,
+            tag,
+          };
+        });
+
+        state.status = "succeeded";
+        state.comics = comics;
+      })
+      .addCase(fetchAllComics.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       });

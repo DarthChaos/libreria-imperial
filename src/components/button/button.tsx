@@ -20,8 +20,8 @@ const Button = ({
   }`;
   const smallCorners =
     type == "base"
-      ? "group-hover:border-primary-red-1"
-      : "group-hover:border-primary-blue";
+      ? "border-0.5 border-solid border-primary-red-1"
+      : "border-0.5 border-solid border-primary-blue";
 
   const onButtonClick = () => {
     onClick && onClick();

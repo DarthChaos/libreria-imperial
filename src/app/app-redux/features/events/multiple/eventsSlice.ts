@@ -20,7 +20,16 @@ export const fetchFeaturedEvents = createAsyncThunk(
     return response;
   },
 );
+export const fetchAllEvents = createAsyncThunk(
+  "comic/getAllEvents",
+  async (limit: number = 16) => {
+    const response = await client(`events`, {
+      limit: limit.toString(),
+    }).get();
 
+    return response;
+  },
+);
 export const eventsSlice = createSlice({
   name: "events",
   initialState,
@@ -52,6 +61,32 @@ export const eventsSlice = createSlice({
         state.events = events;
       })
       .addCase(fetchFeaturedEvents.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
+      .addCase(fetchAllEvents.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllEvents.fulfilled, (state, action) => {
+        const results = action.payload.data.results;
+        const events = results.map((res: any) => {
+          const thumbnail = res.thumbnail;
+          const firstDate = res.start;
+          const tag = firstDate && new Date(firstDate).getFullYear().toString();
+
+          return {
+            id: res.id.toString(),
+            title: res.title,
+            desc: res.description,
+            image: `${thumbnail.path}.${thumbnail.extension}`,
+            tag,
+          };
+        });
+
+        state.status = "succeeded";
+        state.events = events;
+      })
+      .addCase(fetchAllEvents.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       });

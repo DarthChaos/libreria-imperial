@@ -22,7 +22,11 @@ const RelatedComics = ({ characterId }: RelatedComicsProps) => {
 
   return (
     <GrayContainer>
-      <CardCarousel title='Related Comics' items={comics} />
+      <CardCarousel
+        mainRoute='/comics/'
+        title='Related Comics'
+        items={comics}
+      />
     </GrayContainer>
   );
 };

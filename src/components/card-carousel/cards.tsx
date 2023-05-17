@@ -4,9 +4,21 @@ import { v4 } from "uuid";
 import Link from "next/link";
 import Card from "../card";
 
-const Cards = ({ items }: CardCarouselProps) => {
-  const cards = items.map(({ id, desc, image, tag, title }) => {
-    const href = `/comics/${id}`;
+type CardsProps = {
+  title?: string;
+  items:
+    | []
+    | {
+        href: string;
+        title: string;
+        desc: string;
+        image: string;
+        tag?: string | boolean;
+      }[];
+};
+
+const Cards = ({ items }: CardsProps) => {
+  const cards = items.map(({ href, desc, image, tag, title }) => {
     const uuid = v4();
 
     return (

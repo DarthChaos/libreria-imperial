@@ -14,6 +14,7 @@ export const initialState: CharacterState = {
     events: [],
     stories: [],
   },
+  characters: [],
   status: "idle",
   error: null,
 };
@@ -22,6 +23,17 @@ export const fetchCharacter = createAsyncThunk(
   "comic/getCharacterById",
   async ({ id }: { id: string }) => {
     const response = await client(`characters/${id}`, { limit: "1" }).get();
+
+    return response;
+  },
+);
+
+export const fetchAllCharacters = createAsyncThunk(
+  "comic/fetchAllCharacters",
+  async (limit: number = 16) => {
+    const response = await client("characters", {
+      limit: limit.toString(),
+    }).get();
 
     return response;
   },
@@ -63,6 +75,29 @@ export const characterSlice = createSlice({
         };
       })
       .addCase(fetchCharacter.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || null;
+      })
+      .addCase(fetchAllCharacters.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllCharacters.fulfilled, (state, action) => {
+        const results = action.payload.data.results;
+        const characters = results.map((result: any) => {
+          const thumbnail = result.thumbnail;
+
+          return {
+            id: result.id,
+            title: result.name,
+            image: `${thumbnail.path}.${thumbnail.extension}`,
+            desc: result.description,
+          };
+        });
+
+        state.status = "succeeded";
+        state.characters = characters;
+      })
+      .addCase(fetchAllCharacters.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || null;
       });

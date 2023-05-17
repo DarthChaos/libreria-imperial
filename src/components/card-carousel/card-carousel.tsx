@@ -13,19 +13,31 @@ export type CardCarouselProps = {
         image: string;
         tag?: string | boolean;
       }[];
+  className?: string;
+  titleClassName?: string;
+  mainRoute: string;
 };
 
-const CardCarousel = ({ title, items }: CardCarouselProps) => {
-  const cards = useMemo(() => Cards({ items }), [items]);
+const CardCarousel = ({
+  className,
+  title,
+  titleClassName,
+  items,
+  mainRoute,
+}: CardCarouselProps) => {
+  const newItems = items.map(({ id, ...it }) => ({
+    href: `${mainRoute}${id}`,
+    ...it,
+  }));
+
+  const cards = useMemo(() => Cards({ items: newItems }), [items]);
+  const titleClass = `text-primary-white font-semibold text-4xl text-center mb-8 ${titleClassName}`;
+  const carouselClass = `mx-8 max-w-[800px] h-[420px] flex justify-center md:mx-auto ${className}`;
 
   return (
     <>
-      {title && (
-        <h2 className='text-primary-white font-semibold text-4xl text-center mb-8'>
-          {title}
-        </h2>
-      )}
-      <div className='mx-8 max-w-[800px] h-[420px] flex justify-center md:mx-auto'>
+      {title && <h2 className={titleClass}>{title}</h2>}
+      <div className={carouselClass}>
         <Carousel elements={cards} />
       </div>
     </>

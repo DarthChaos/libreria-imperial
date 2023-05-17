@@ -22,7 +22,11 @@ const OtherEvents = ({ characterId }: OtherEventsProps) => {
 
   return (
     <GrayContainer>
-      <CardCarousel title='Related Events' items={events} />
+      <CardCarousel
+        mainRoute='/events/'
+        title='Related Events'
+        items={events}
+      />
     </GrayContainer>
   );
 };
