@@ -2,7 +2,13 @@ import Image from "next/image";
 import React from "react";
 import Tag from "../tag";
 
-const Card = ({ description, img, tag, title, imgAlt = "Card" }: CardProps) => {
+const Card = ({
+  description,
+  img,
+  tag = false,
+  title,
+  imgAlt = "Card",
+}: CardProps) => {
   const hasTag = typeof tag !== "boolean";
 
   return (
