@@ -2,11 +2,7 @@ import React from "react";
 import { ContainerProps } from "./container";
 
 const GrayContainer = ({ children }: ContainerProps) => {
-  return (
-    <div className='px-auto py-4 mb-10 bg-primary-gray-2 relative -z-10'>
-      {children}
-    </div>
-  );
+  return <div className='px-auto py-4 mb-10 bg-primary-gray-2'>{children}</div>;
 };
 
 export default GrayContainer;
