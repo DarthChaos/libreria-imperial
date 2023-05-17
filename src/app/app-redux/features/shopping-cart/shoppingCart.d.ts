@@ -1,6 +1,6 @@
 import { error, status } from "@/interfaces/global-redux";
 
-interface shoppingCartItem {
+export interface shoppingCartItem {
   img: string;
   name: string;
   uPrice: number;

@@ -4,6 +4,7 @@ import { HambergerMenu, BagHappy } from "iconsax-react";
 
 import Image from "next/image";
 import NavigationBar from "./navigation-bar";
+import Link from "next/link";
 
 const Header = () => {
   const [openNavBar, setOpenNavBar] = useState(false);
@@ -21,7 +22,14 @@ const Header = () => {
       </div>
       <NavigationBar />
       <div className='flex gap-1'>
-        <BagHappy className='w-7 my-auto' variant='Bold' color='#000000' />
+        <Link href='/shopping-cart'>
+          <BagHappy
+            className='w-8 my-auto'
+            size={30}
+            variant='Bold'
+            color='#000000'
+          />
+        </Link>
         <span className='text-sm font-semibold my-auto text-primary-black'>
           Sign In / Log In
         </span>

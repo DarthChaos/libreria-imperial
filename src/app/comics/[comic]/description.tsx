@@ -3,6 +3,9 @@ import React from "react";
 
 import { UsdCoin, Like1, BagTick } from "iconsax-react";
 import BlackContainer from "@/components/containers/black-container";
+import { useDispatch } from "react-redux";
+import { addNewItem } from "@/app/app-redux/features/shopping-cart/shoppingCartSlice";
+import { toast } from "react-toastify";
 
 type DescriptionProps = {
   title: string;
@@ -10,7 +13,7 @@ type DescriptionProps = {
   img: string;
   imgAlt?: string;
   publishDate: string;
-  price?: string;
+  price?: string | null;
   likes?: number;
 };
 
@@ -18,14 +21,29 @@ const Description = ({
   title,
   img,
   description = "",
-  price = "Unknown",
+  price = null,
   publishDate,
   imgAlt,
   likes = 0,
 }: DescriptionProps) => {
+  const dispatch = useDispatch();
+
   const alt = imgAlt || "comic cover";
-  const priceValue = price === "Unknown" ? price : `$ ${price} USD`;
+  const priceValue = !price ? "Unknown" : `$ ${price} USD`;
   const likeLabel = `${likes} like${likes < 2 ? "s" : ""}`;
+
+  const onCartClick = () => {
+    if (price) {
+      dispatch(
+        addNewItem({
+          img,
+          name: title,
+          uPrice: price || 0,
+          tPrice: price || 0,
+        }),
+      );
+    }
+  };
 
   return (
     <BlackContainer>
@@ -61,7 +79,12 @@ const Description = ({
             </div>
             <div className='col-auto flex flex-col content-center flex-wrap'>
               <div className='cursor-pointer flex justify-center'>
-                <BagTick size='64' color='#fff' variant='Bold' />
+                <BagTick
+                  size='64'
+                  color='#fff'
+                  variant='Bold'
+                  onClick={onCartClick}
+                />
               </div>
               <span className='text-center'>Add to Cart</span>
             </div>

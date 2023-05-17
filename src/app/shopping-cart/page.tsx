@@ -1,14 +1,22 @@
+"use client";
+
 import BreadCrumb from "@/components/breadcrumb";
 import BlackContainer from "@/components/containers/black-container";
-import Image from "next/image";
 import React from "react";
-import CartItem from "./cart-item";
-import Button from "@/components/button/button";
-import TextArea from "@/components/input/textarea";
 import Summary from "./summary";
 import CartHeader from "./cart-header";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app-redux/store";
+import CartItems from "./cart-items";
+
 const ShoppingCart = () => {
+  const dispatch = useDispatch();
+  const {
+    cart: { items, total, observation },
+    status: comicStatus,
+  } = useSelector((state: RootState) => state.shoppingCart);
+
   const crumbs = [{ label: "Home", value: "/" }, { label: "Shopping Cart" }];
 
   return (
@@ -16,8 +24,7 @@ const ShoppingCart = () => {
       <BreadCrumb {...{ crumbs }} />
       <BlackContainer>
         <CartHeader />
-        <CartItem />
-        <CartItem />
+        <CartItems {...{ items }} />
         <Summary />
       </BlackContainer>
     </>

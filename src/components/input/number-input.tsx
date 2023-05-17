@@ -2,7 +2,11 @@
 
 import React, { FormEvent, useEffect, useState } from "react";
 
-const NumberInput = () => {
+type NumberInputProps = {
+  onChange?: (v: number) => void;
+};
+
+const NumberInput = ({ onChange }: NumberInputProps) => {
   const [value, setValue] = useState(1);
 
   const decrease = () => {
@@ -19,7 +23,9 @@ const NumberInput = () => {
     setValue(v < 1 ? 1 : v);
   };
 
-  useEffect(() => {}, [value]);
+  useEffect(() => {
+    onChange && onChange(value);
+  }, [value, onChange]);
 
   return (
     <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { shoppingCartState } from "./shoppingCart";
+import { shoppingCartItem, shoppingCartState } from "./shoppingCart";
 
 const initialCartState = { items: [], total: 0 };
 const initialState: shoppingCartState = {
@@ -39,6 +39,26 @@ export const shoppingCartSlice = createSlice({
   },
 });
 
-export const { loadValues } = shoppingCartSlice.actions;
+const uploadToStorage = (items: shoppingCartItem[]) => {
+  localStorage.setItem("shoppingCartItems", JSON.stringify(items));
+};
+
+const loadFromStorage = () => {
+  const itemsFromStorage = localStorage.getItem("shoppingCartItems");
+
+  if (itemsFromStorage) {
+    return JSON.parse(itemsFromStorage);
+  }
+
+  return null;
+};
+
+export const {
+  loadValues,
+  addNewItem,
+  changeObservation,
+  checkingOut,
+  removeItem,
+} = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

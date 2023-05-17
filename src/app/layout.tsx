@@ -1,8 +1,7 @@
 "use client";
 
 import { Roboto_Condensed } from "next/font/google";
-
-import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 
 import Providers from "./app-redux/providers";
 import Header from "@/layouts/header";
@@ -33,8 +32,11 @@ export default function RootLayout({
     <html lang='en'>
       <body className={robotoCondensed.className}>
         <Header />
-        <main className='pt-[70px] min-h-screen'>
-          <Providers>{children}</Providers>
+        <main className='pt-[70px] min-h-[calc(100vh-70px)]'>
+          <Providers>
+            {/* <ToastContainer className='absolute' /> */}
+            {children}
+          </Providers>
         </main>
         <Footer />
       </body>
