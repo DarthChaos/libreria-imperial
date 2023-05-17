@@ -2,7 +2,11 @@ import Button from "@/components/button/button";
 import TextArea from "@/components/input/textarea";
 import React from "react";
 
-const Summary = () => {
+type SummaryProps = {
+  total: number;
+};
+
+const Summary = ({ total }: SummaryProps) => {
   return (
     <div className='flex flex-col md:flex-row mt-6'>
       <div className='w-full max-w-[380px] mb-7 md:w-1/3'>
@@ -13,7 +17,7 @@ const Summary = () => {
           <div className='col-span-3'>Estimate Shipping:</div>
           <div>3 weeks</div>
           <div className='col-span-3'>Total (with ship and taxes):</div>
-          <div>$ 14.99</div>
+          <div>$ {total}</div>
         </div>
         <Button className='self-center mt-9 md:self-end'>Check Out</Button>
       </div>
