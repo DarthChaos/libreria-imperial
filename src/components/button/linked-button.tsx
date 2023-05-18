@@ -6,9 +6,11 @@ type LinkedButtonProps = {
   onClick?: () => void;
 };
 
-const LinkedButton = ({ children }: LinkedButtonProps) => {
+const LinkedButton = ({ children, href }: LinkedButtonProps) => {
   return (
-    <a className='text-primary-red-1 decoration-primary-red-1 decoration-[0.5px] decoration-solid underline underline-offset-2 cursor-pointer'>
+    <a
+      {...{ href }}
+      className='text-primary-red-1 decoration-primary-red-1 decoration-[0.5px] decoration-solid underline underline-offset-2 cursor-pointer'>
       {children}
     </a>
   );

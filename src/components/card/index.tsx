@@ -2,7 +2,13 @@ import Image from "next/image";
 import React from "react";
 import Tag from "../tag";
 
-const Card = ({ description, img, tag, title, imgAlt = "Card" }: CardProps) => {
+const Card = ({
+  description,
+  img,
+  tag = false,
+  title,
+  imgAlt = "Card",
+}: CardProps) => {
   const hasTag = typeof tag !== "boolean";
 
   return (
@@ -21,7 +27,7 @@ const Card = ({ description, img, tag, title, imgAlt = "Card" }: CardProps) => {
           {hasTag && <Tag label={tag} />}
         </div>
         <h3 className='text-xl font-semibold line-clamp-1 mb-2'>{title}</h3>
-        <p className='line-clamp-5 leading-4 text-sm text-primary-black'>
+        <p className='line-clamp-5 leading-4 text-sm text-primary-black text-start'>
           {description ?? "No description."}
         </p>
       </div>

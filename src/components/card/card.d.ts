@@ -1,7 +1,7 @@
 interface CardProps {
   img: string;
   imgAlt?: string;
-  tag: string | boolean;
+  tag?: string | boolean;
   title: string;
   description: string;
 }
