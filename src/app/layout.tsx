@@ -30,16 +30,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={robotoCondensed.className}>
-        <Header />
-        <main className='pt-[70px] min-h-[calc(100vh-70px)]'>
-          <Providers>
+      <Providers>
+        <body className={robotoCondensed.className}>
+          <Header />
+          <main className='pt-[70px] min-h-[calc(100vh-70px)]'>
             {/* <ToastContainer className='absolute' /> */}
             {children}
-          </Providers>
-        </main>
-        <Footer />
-      </body>
+          </main>
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }

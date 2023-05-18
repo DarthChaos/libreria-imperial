@@ -26,7 +26,12 @@ export const simpleAuth = createSlice({
   name: "simple-auth",
   initialState,
   reducers: {
-    signIn: () => ({ isLogged: true }),
+    loadValues: (_state, action) => ({ ...action.payload }),
+    signIn: (_state, action) => ({ isLogged: true, user: action.payload }),
     signOut: () => ({ isLogged: false }),
   },
 });
+
+export const { signIn, signOut, loadValues } = simpleAuth.actions;
+
+export default simpleAuth.reducer;

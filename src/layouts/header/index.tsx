@@ -1,19 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { HambergerMenu, BagHappy, CloseCircle } from "iconsax-react";
 
 import Image from "next/image";
 import NavigationBar from "./navigation-bar";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/app-redux/store";
+import {
+  downloadLog,
+  loadValues,
+  signOut,
+} from "@/app/app-redux/auth/simple-auth";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [openNavBar, setOpenNavBar] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  const { isLogged, user } = useSelector((state: RootState) => state.auth);
+
+  const loggedLabel = isLogged ? "Sign Out" : "Sign In / Log In";
+
+  useEffect(() => {
+    const data = downloadLog();
+
+    if (data) dispatch(loadValues(data));
+  }, [dispatch]);
 
   const onHamburgerClick = () => {
     setOpenNavBar(true);
   };
   const onCloseClick = () => {
     setOpenNavBar(false);
+  };
+  const onSignIn = () => {
+    router.push("/log-in");
+  };
+  const onSignOut = () => {
+    dispatch(signOut());
+    router.push("/");
+  };
+  const onLoggedClick = () => {
+    if (isLogged) onSignOut();
+    else onSignIn();
   };
 
   return (
@@ -36,17 +68,24 @@ const Header = () => {
           </Link>
         </div>
         <NavigationBar />
-        <div className='flex gap-1'>
-          <Link href='/shopping-cart'>
-            <BagHappy
-              className='w-8 my-auto'
-              size={30}
-              variant='Bold'
-              color='#000000'
-            />
-          </Link>
-          <span className='text-sm font-semibold my-auto text-primary-black'>
-            Sign In / Log In
+        <div className='flex gap-4'>
+          {isLogged && (
+            <Link className='flex' href='/shopping-cart'>
+              <span className='text-xs font-semibold my-auto text-primary-black'>
+                Shopping Cart
+              </span>
+              <BagHappy
+                className='w-8 my-auto'
+                size={30}
+                variant='Bold'
+                color='#000000'
+              />
+            </Link>
+          )}
+          <span
+            className='text-sm font-semibold my-auto text-primary-black'
+            onClick={onLoggedClick}>
+            {loggedLabel}
           </span>
         </div>
       </header>
