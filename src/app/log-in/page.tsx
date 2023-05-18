@@ -1,10 +1,13 @@
+"use client"
 import "./Formulario.css"
 import {FormEvent, useState} from "react"
 
-export function Formulario() {
+export default function Formulario() {
     const [nombre, setNombre] = useState("")
     const [contraseña, setContraseña] = useState("")
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
+
+    const buttonError = error && '';
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
