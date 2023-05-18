@@ -8,6 +8,7 @@ import eventsSlice from "./features/events/multiple/eventsSlice";
 import charactersSlice from "./features/characters/charactersSlice";
 import shoppingCartSlice from "./features/shopping-cart/shoppingCartSlice";
 import simpleAuth from "./auth/simple-auth";
+import spinnerSlice from "./features/spinner/spinnerSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     character: charactersSlice,
     shoppingCart: shoppingCartSlice,
     auth: simpleAuth,
+    spinner: spinnerSlice,
   },
 });
 

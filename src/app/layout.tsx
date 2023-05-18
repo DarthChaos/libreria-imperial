@@ -8,6 +8,7 @@ import Header from "@/layouts/header";
 import Footer from "@/layouts/footer";
 
 import "./globals.css";
+import LoadingSpinner from "@/layouts/loading-spinner";
 
 const robotoCondensed = Roboto_Condensed({
   weight: ["300", "400", "700"],
@@ -32,6 +33,7 @@ export default function RootLayout({
     <html lang='en'>
       <Providers>
         <body className={robotoCondensed.className}>
+          <LoadingSpinner />
           <Header />
           <main className='pt-[70px] min-h-[calc(100vh-70px)]'>
             {/* <ToastContainer className='absolute' /> */}
