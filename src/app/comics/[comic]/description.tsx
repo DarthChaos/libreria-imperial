@@ -52,7 +52,7 @@ const Description = ({
           {title}
         </h1>
         <div className='-z-10 aspect-[375/484] w-full h-auto max-w-[375px] mx-auto relative'>
-          <Image {...{ alt }} src={img} fill />
+          <Image className='object-cover' {...{ alt }} src={img} fill />
         </div>
         <div className='flex flex-col'>
           <h1 className='text-[32px] font-bold text-center hidden mb-auto md:block'>

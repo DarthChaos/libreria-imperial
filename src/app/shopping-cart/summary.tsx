@@ -17,7 +17,7 @@ const Summary = ({ total }: SummaryProps) => {
           <div className='col-span-3'>Estimate Shipping:</div>
           <div>3 weeks</div>
           <div className='col-span-3'>Total (with ship and taxes):</div>
-          <div>$ {total}</div>
+          <div>$ {total.toFixed(2)}</div>
         </div>
         <Button className='self-center mt-9 md:self-end'>Check Out</Button>
       </div>

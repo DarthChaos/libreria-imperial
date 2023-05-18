@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import { v4 } from "uuid";
 import { register } from "swiper/element/bundle";
-
-import Swiper from "swiper";
 
 register();
 
